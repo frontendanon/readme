@@ -1,4 +1,7 @@
-# [gulpfile.js](gulpfile.js)
+# gulpfile.js
+
+[package.json](package.json)
+[gulpfile.js](gulpfile.js)
 
 Подключение плагинов gulp-* (gulp-autoprefixer, gulp-cssnano, gulp-htmlmin, gulp-imagemin, gulp-plumber, gulp-pug, gulp-rename, gulp-sourcemaps, gulp-stylus)
 
