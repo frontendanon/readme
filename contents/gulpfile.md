@@ -1,4 +1,4 @@
-# gulpfile.js
+# [gulpfile.js](gulpfile.js)
 
 Подключение плагинов gulp-* (gulp-autoprefixer, gulp-cssnano, gulp-htmlmin, gulp-imagemin, gulp-plumber, gulp-pug, gulp-rename, gulp-sourcemaps, gulp-stylus)
 
@@ -65,6 +65,7 @@ gulp.task('pug', function() {
       pretty: true
     }))
     .pipe(gulp.dest('dev'));
+    .pipe(reload({stream: true}));
 });
 ```
 
@@ -83,6 +84,7 @@ gulp.task('stylus', function () {
     .pipe(plugins.autoprefixer())
     .pipe(plugins.sourcemaps.write('.'))
     .pipe(gulp.dest('dev/css'));
+    .pipe(reload({stream: true}));
 });
 ```
 
@@ -137,11 +139,19 @@ gulp.task('clean:sprite', function() {
 Задача разработки gulp develop. Собирает спрайт, копирует картинки, компилирует pug и stylus файлы во время разработки
 
 ```
-gulp.task('develop', ['browserSync'], function () {
-  gulp.watch('src/**/sprite*.png', ['sprite', reload]);
-  gulp.watch(['src/**/*.{png,jpg}', '!src/**/sprite*.{png,jpg}'], ['images', reload]);
-  gulp.watch('src/**/*.pug', ['pug', reload]);
-  gulp.watch('src/**/*.styl', ['stylus', reload]);
+gulp.task('develop', ['browserSync'], function(){
+  plugins.watch('src/**/*.pug', function(event, cb) {
+    gulp.start('pug');
+  });
+  plugins.watch('src/**/*.styl', function(event, cb) {
+    gulp.start('stylus');
+  });
+  plugins.watch('src/**/sprite*.{png,jpg}', function(event, cb) {
+    gulp.start('sprite');
+  });
+  plugins.watch(['src/**/*.{png,jpg}', '!src/**/sprite*.{png,jpg}'], function(event, cb) {
+    gulp.start('images');
+  });
 });
 ```
 
