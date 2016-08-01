@@ -1,5 +1,7 @@
 # frontendanon readme
 
+В данном документе описан репозиторий [simple-project](https://github.com/frontendanon/simple-project)
+
 ----------
 
 ## Содержание
