@@ -204,6 +204,11 @@ gulp.task('html', function() {
 gulp.task('imagemin', function(){
   return gulp.src(['src/**/*.{png,jpg}', '!src/**/sprite*.{png,jpg}', 'dev/img/sprite.png'])
   .pipe(plugins.imagemin())
+  .pipe(plugins.rename(function(path) {
+    var dirs = path.dirname.split(dirSep);
+    dirs.splice(0, 2);
+    path.dirname = dirs.join(dirSep)
+  }))
   .pipe(gulp.dest('build/img'));
 });
 ```
